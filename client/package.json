@@ -1,0 +1,28 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "graphql": {
+    "request": {
+      "url": "http://localhost:3001/graphql"
+    }
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-relay": "^1.4.1",
+    "react-scripts": "1.0.14",
+    "relay": "^0.8.0-1",
+    "relay-compiler": "^1.4.1"
+  },
+  "devDependencies": {
+    "babel-plugin-react-relay": "^0.10.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "relay": "relay-compiler --src ./src --schema ./src/schema.graphql"
+  }
+}
