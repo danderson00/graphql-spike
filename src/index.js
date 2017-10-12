@@ -5,12 +5,9 @@ const schema = require('./schema')
 
 const app = express()
 const db = knex({
-  client: 'mssql',
+  client: 'sqlite',
   connection: {
-    host : 'localhost',
-    user : 'sa',
-    password : 'abc123',
-    database : 'graphql'
+    filename: ':memory:'
   }
 })
 
@@ -19,4 +16,17 @@ app.use('/graphql', graphql({
   graphiql: true
 }))
 
-app.listen(3001, () => console.log("Listening on port 3001"))
+db.schema.createTableIfNotExists('sites', table => {
+  table.string('id')
+  table.string('name')
+})
+.then(() => 
+  db.schema.createTableIfNotExists('buildings', table => {
+    table.string('id')
+    table.string('name')
+    table.string('siteId').references('sites.id')
+  })
+)
+.then(() => db('sites').insert({ id: '1', name: 'site 1' }))
+.then(() => db('buildings').insert({ id: '1', name: 'building 1', siteId: '1' }))
+.then(() => app.listen(3001, () => console.log("Listening on port 3001")))
