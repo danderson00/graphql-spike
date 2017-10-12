@@ -8,6 +8,14 @@ const typeDefs = `
     buildings(siteId: String): [Building]
   }
 
+  type Mutation {
+    addBuilding(
+      id: String
+      name: String
+      siteId: String
+    ): Building
+  }
+
   type Site {
     id: String
     name: String
@@ -22,22 +30,26 @@ const typeDefs = `
 
   schema {
     query: Query
+    mutation: Mutation
   }
 `
 
 module.exports = knex => {
   const resolvers = {
     Query: {
-      site: (root, { id }) => knex('sites').where({ id }),
+      site: (root, { id }) => knex('sites').where({ id }).first(),
       sites: () => knex('sites'),
-      building: (root, { id }) => knex('buildings').where({ id }),
+      building: (root, { id }) => knex('buildings').where({ id }).first(),
       buildings: (root, { siteId }) => knex('buildings').where({ siteId })
+    },
+    Mutation: {
+      addBuilding: (root, { id, name, siteId }) => knex('buildings').insert({ id, name, siteId }).then(() => ({ id, name, siteId }))
     },
     Site: {
       buildings: root => knex('buildings').where({ siteId: root.id })
     },
     Building: {
-      site: root => knex('sites').where({ id: root.siteId })
+      site: root => knex('sites').where({ id: root.siteId }).first()
     }
   }
 
