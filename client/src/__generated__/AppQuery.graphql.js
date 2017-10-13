@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash af677e142c07f7851192d68b9aaab3e8
+ * @relayHash 2e10438cfbea00a2c5b18f19ac67a80e
  */
 
 /* eslint-disable */
@@ -13,10 +13,6 @@ export type AppQueryResponse = {|
   +sites: ?$ReadOnlyArray<?{|
     +id: ?string;
     +name: ?string;
-    +buildings: ?$ReadOnlyArray<?{|
-      +id: ?string;
-      +name: ?string;
-    |}>;
   |}>;
 |};
 */
@@ -27,10 +23,6 @@ query AppQuery {
   sites {
     id
     name
-    buildings {
-      id
-      name
-    }
   }
 }
 */
@@ -62,31 +54,6 @@ const batch /*: ConcreteBatch*/ = {
             "alias": null,
             "args": null,
             "name": "name",
-            "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "args": null,
-            "concreteType": "Building",
-            "name": "buildings",
-            "plural": true,
-            "selections": [
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "name",
-                "storageKey": null
-              }
-            ],
             "storageKey": null
           }
         ],
@@ -126,38 +93,13 @@ const batch /*: ConcreteBatch*/ = {
             "args": null,
             "name": "name",
             "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "args": null,
-            "concreteType": "Building",
-            "name": "buildings",
-            "plural": true,
-            "selections": [
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "name",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
           }
         ],
         "storageKey": null
       }
     ]
   },
-  "text": "query AppQuery {\n  sites {\n    id\n    name\n    buildings {\n      id\n      name\n    }\n  }\n}\n"
+  "text": "query AppQuery {\n  sites {\n    id\n    name\n  }\n}\n"
 };
 
 module.exports = batch;

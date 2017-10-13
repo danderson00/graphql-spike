@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
-import { graphql, createFragmentContainer } from 'react-relay'
+import React from 'react'
+import { graphql } from 'react-relay'
+import { Query } from './Query'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-
-      </div>
-    )
-  }
-}
-
-export default createFragmentContainer(App, graphql`query AppQuery { sites { id, name, buildings { id, name } } }`)
+export default () => (
+  <Query 
+    query={graphql`query AppQuery { sites { id, name } }`}
+    render={data => {
+      return <ul>
+        {data.sites.map(site => <li key={site.id}>{site.name}</li>)}
+      </ul>
+    }} />
+)

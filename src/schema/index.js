@@ -1,38 +1,8 @@
 const tools = require('graphql-tools')
+const fs = require('fs')
+const path = require('path')
 
-const typeDefs = `
-  type Query {
-    site(id: String): Site
-    sites: [Site]
-    building(id: String): Building
-    buildings(siteId: String): [Building]
-  }
-
-  type Mutation {
-    addBuilding(
-      id: String
-      name: String
-      siteId: String
-    ): Building
-  }
-
-  type Site {
-    id: String
-    name: String
-    buildings: [Building]
-  }
-
-  type Building {
-    id: String
-    name: String
-    site: Site
-  }
-
-  schema {
-    query: Query
-    mutation: Mutation
-  }
-`
+const typeDefs = fs.readFileSync(path.join(__dirname, '../../client/src/schema.graphql'), 'utf8')
 
 module.exports = knex => {
   const resolvers = {

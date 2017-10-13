@@ -7,7 +7,7 @@ const app = express()
 const db = knex({
   client: 'sqlite',
   connection: {
-    filename: ':memory:'
+    filename: 'data.db'
   }
 })
 
