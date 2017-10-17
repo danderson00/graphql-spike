@@ -29,4 +29,5 @@ db.schema.createTableIfNotExists('sites', table => {
 )
 .then(() => db('sites').insert({ id: '1', name: 'site 1' }))
 .then(() => db('buildings').insert({ id: '1', name: 'building 1', siteId: '1' }))
+
 .then(() => app.listen(3001, () => console.log("Listening on port 3001")))
