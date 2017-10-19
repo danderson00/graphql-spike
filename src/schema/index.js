@@ -23,11 +23,10 @@ const typeDefs = `
   }
 
   type Mutation {
-    addBuilding(
+    addSite(
       id: String
       name: String
-      siteId: String
-    ): Building
+    ): Site
   }
 
   schema {
@@ -45,10 +44,10 @@ module.exports = knex => {
       buildings: (root, { siteId }) => knex('buildings').where({ siteId })
     },
     Mutation: {
-      addBuilding: (root, { id, name, siteId }) => {
-        const newBuilding = { id, name, siteId }
-        return knex('buildings').insert(newBuilding)
-          .then(() => newBuilding)
+      addSite: (root, { id, name }) => {
+        const newSite = { id, name }
+        return knex('sites').insert(newSite)
+          .then(() => newSite)
       }
     },
     Site: {
